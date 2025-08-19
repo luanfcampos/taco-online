@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link href="/src/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taco - Online</title>
+  </head>
+  <body class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 gradient-text">
+                🥗 Consulta Nutricional
+            </h1>
+            <p class="text-xl text-white/90 font-medium">
+                API Oficial da Tabela TACO - Tabela Brasileira de Composição de Alimentos
+            </p>
+        </div>
+
+        <!-- Main Container -->
+        <div class="glass-effect rounded-3xl p-6 md:p-8 shadow-2xl">
+            <!-- Search Container -->
+            <div class="relative mb-8">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    class="w-full px-6 py-4 pr-16 text-lg border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200 outline-none transition-all duration-300 bg-white/90 placeholder-gray-500"
+                    placeholder="Digite o nome do alimento (ex: arroz, banana, frango...)"
+                >
+                <button 
+                    id="searchBtn"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-3 rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                >
+                    🔍
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="hidden text-center py-16">
+                <div class="inline-block w-12 h-12 border-4 border-indigo-200 border-t-indigo-500 rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-600 text-lg">Buscando alimentos na API TACO...</p>
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="hidden text-center py-16">
+                <div class="text-6xl mb-4">🔍</div>
+                <h3 class="text-2xl font-bold text-gray-700 mb-2">Nenhum alimento encontrado</h3>
+                <p class="text-gray-500">Tente usar termos mais específicos ou verifique a ortografia</p>
+            </div>
+
+            <!-- Foods Grid -->
+            <div id="foodsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="hidden bg-gradient-to-r from-red-500 to-pink-500 text-white p-6 rounded-2xl text-center mt-8 shadow-lg">
+                Erro ao consultar a API. Tente novamente em alguns instantes.
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="detailedView" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar animate-slide-up">
+            <button id="closeBtn" class="absolute top-6 right-8 text-gray-400 hover:text-gray-600 text-3xl font-light transition-colors">
+                ✕
+            </button>
+            
+            <div id="detailedTitle" class="text-3xl font-bold text-gray-800 mb-2 pr-12"></div>
+            <div id="detailedCategory" class="text-indigo-500 text-sm uppercase tracking-wide font-semibold mb-6"></div>
+            
+            <!-- Portion Control -->
+            <div class="bg-indigo-50 rounded-2xl p-6 mb-8 flex items-center justify-center gap-4">
+                <label class="text-gray-700 font-semibold text-lg">Quantidade:</label>
+                <input 
+                    type="number" 
+                    id="portionInput" 
+                    value="100" 
+                    min="1" 
+                    max="9999"
+                    class="w-24 px-4 py-2 text-center text-lg border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all"
+                >
+                <label class="text-gray-700 font-semibold text-lg">gramas</label>
+            </div>
+
+            <!-- Detailed Macros -->
+            <div id="detailedMacros" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"></div>
+
+            <!-- Nutrients Section -->
+            <div class="bg-gray-50 rounded-2xl p-6">
+                <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Informações Nutricionais Completas</h3>
+                <div id="detailedNutrients" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
